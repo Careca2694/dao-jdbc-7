@@ -38,10 +38,10 @@ public class Program {
 			System.out.println(obj);
 		}
 		
-		System.out.println("\n\n=== Test 4: Seller insert ====");
-		Seller newSeller = new Seller(null, "Gregorio","gregorio.gmail.com",new Date(),4500.50,department);
-		sellerDao.insert(newSeller);
-		System.out.println("insert new id: " + newSeller.getId());
+//		System.out.println("\n\n=== Test 4: Seller insert ====");
+//		Seller newSeller = new Seller(null, "Gregorio","gregorio.gmail.com",new Date(),4500.50,department);
+//		sellerDao.insert(newSeller);
+//		System.out.println("insert new id: " + newSeller.getId());
 		
 		System.out.println("\n\n=== Test 5: Seller Update ====");
 		
@@ -51,6 +51,10 @@ public class Program {
 		sellerDao.update(seller);
 		System.out.println("Update completed.");
 
+		System.out.println("\n\n=== Test 6: Seller Delete ====");
+		sellerDao.deleteById(9);
+		
+		System.out.println("Delete completed");
 	}
 
 }
