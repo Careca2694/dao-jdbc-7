@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -133,8 +136,37 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public List<Department> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			String sqlFindAll = "Select * from department order by name";
+			preparedStatement = connection.prepareStatement(sqlFindAll);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			List<Department> allDepartment = new ArrayList<>();
+			Map<Integer, Department> map = new HashMap<>();
+			
+			while(resultSet.next()) {
+				
+			   Department dep = map.get(resultSet.getInt("Id"));
+				
+			if(dep == null) {
+				dep = instantiateDepartment(resultSet);
+				map.put(resultSet.getInt("Id"), dep);
+			}
+			 
+			allDepartment.add(dep);
+			
+			}
+			
+			return allDepartment;
+			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 }
