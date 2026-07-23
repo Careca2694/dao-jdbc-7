@@ -2,12 +2,15 @@ package model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
+import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 	
@@ -43,26 +46,26 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	@Override
 	public void update(Department department) {
 		
-		PreparedStatement preparedStatement = null;
-		try {
-			String sqlUpdate = "update seller set Name = ?,where id = ?";
-			
-			preparedStatement = connection.prepareStatement(sqlUpdate);
-			preparedStatement.setString(1,department.getName());
-			preparedStatement.setInt(2, department.getId());
-			
-			int rowsaAffected = preparedStatement.executeUpdate();
-			
-			if(rowsaAffected > 0) {
-				System.out.println("Update Success..");
-			}else {
-				throw new DbException("Not row affected.");
-			}
-			
-			
-		}catch(SQLException e) {
-			throw new DbException(e.getMessage());
-		}
+//		PreparedStatement preparedStatement = null;
+//		try {
+//			String sqlUpdate = "update seller set Name = ?, where id = ?";
+//			
+//			preparedStatement = connection.prepareStatement(sqlUpdate);
+//			preparedStatement.setString(1,department.getName());
+//			preparedStatement.setInt(2, department.getId());
+//			
+//			int rowsaAffected = preparedStatement.executeUpdate();
+//			
+//			if(rowsaAffected > 0) {
+//				System.out.println("Update Success..");
+//			}else {
+//				throw new DbException("Not row affected.");
+//			}
+//			
+//			
+//		}catch(SQLException e) {
+//			throw new DbException(e.getMessage());
+//		}
 		
 	}
 
@@ -74,8 +77,44 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public Department findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			String sqlFindById =  "Select department.*, department.Name as DepName from department where department.Id = ?";
+			preparedStatement = connection.prepareStatement(sqlFindById);
+			preparedStatement.setInt(1, id);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				
+				Department dep = instantiateDepartment(resultSet);
+				
+				return dep;
+			}
+			return null;
+			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(preparedStatement);
+			DB.closeResultSet(resultSet);
+		}
+			
+			
+		}
+
+	private Department instantiateDepartment(ResultSet resultSet) throws SQLException {
+		
+		Department department = new Department();
+		
+		department.setId(resultSet.getInt("Id"));
+		department.setName(resultSet.getString("Name"));
+		
+		return department;
+		
 	}
 
 	@Override

@@ -12,9 +12,23 @@ public class Program2 {
 		
 		Department department = new Department(null,"Logistics");
 		
-		System.out.println("\n\n=== Test 5: Seller Insert ====");
+		System.out.println("\n\n=== Test 1: Seller Insert ====");
 		
 		departmentDao.insert(department);
+		
+//		System.out.println("\n\n=== Test 5: Seller Update ====");
+//		
+//		departmentDao.update(department);
+//		
+
+		System.out.println("\n\n=== Test 2: Seller FindById ====");
+		
+	    Department newDepartment = departmentDao.findById(5);
+	    
+	    System.out.println(newDepartment);
+	    
+	    
+		
 		
 		
 
