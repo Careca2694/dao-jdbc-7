@@ -10,16 +10,11 @@ public class Program2 {
 		
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
-		Department department = new Department(null,"Logistics");
-		
-		System.out.println("\n\n=== Test 1: Seller Insert ====");
-		
-		departmentDao.insert(department);
-		
-//		System.out.println("\n\n=== Test 5: Seller Update ====");
+		//Department department = new Department(null,"Logistics");
 //		
-//		departmentDao.update(department);
+//		System.out.println("\n\n=== Test 1: Seller Insert ====");
 //		
+//		departmentDao.insert(department);
 
 		System.out.println("\n\n=== Test 2: Seller FindById ====");
 		
@@ -28,7 +23,16 @@ public class Program2 {
 	    System.out.println(newDepartment);
 	    
 	    
-		
+	    System.out.println("\n\n=== Test 3: Seller Update ====");
+	    
+	     Department department = departmentDao.findById(5);
+	    department.setName("Manager");
+	    
+	    departmentDao.update(department);
+	    
+	    System.out.println("Update completed." + department);
+
+
 		
 		
 

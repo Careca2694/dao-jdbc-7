@@ -46,26 +46,26 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	@Override
 	public void update(Department department) {
 		
-//		PreparedStatement preparedStatement = null;
-//		try {
-//			String sqlUpdate = "update seller set Name = ?, where id = ?";
-//			
-//			preparedStatement = connection.prepareStatement(sqlUpdate);
-//			preparedStatement.setString(1,department.getName());
-//			preparedStatement.setInt(2, department.getId());
-//			
-//			int rowsaAffected = preparedStatement.executeUpdate();
-//			
-//			if(rowsaAffected > 0) {
-//				System.out.println("Update Success..");
-//			}else {
-//				throw new DbException("Not row affected.");
-//			}
-//			
-//			
-//		}catch(SQLException e) {
-//			throw new DbException(e.getMessage());
-//		}
+		PreparedStatement preparedStatement = null;
+		try {
+			String sqlUpdate = "update department set Name = ? where id = ?";
+			
+			preparedStatement = connection.prepareStatement(sqlUpdate);
+			preparedStatement.setString(1,department.getName());
+			preparedStatement.setInt(2, department.getId());
+			
+			int rowsaAffected = preparedStatement.executeUpdate();
+			
+			if(rowsaAffected > 0) {
+				System.out.println("Update Success..");
+			}else {
+				throw new DbException("Not row affected.");
+			}
+			
+			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 		
 	}
 
