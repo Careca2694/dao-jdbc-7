@@ -10,7 +10,7 @@ public class Program2 {
 		
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
-		//Department department = new Department(null,"Logistics");
+		Department department = new Department(null,"Logistics");
 //		
 //		System.out.println("\n\n=== Test 1: Seller Insert ====");
 //		
@@ -25,13 +25,18 @@ public class Program2 {
 	    
 	    System.out.println("\n\n=== Test 3: Seller Update ====");
 	    
-	     Department department = departmentDao.findById(5);
+	     department = departmentDao.findById(5);
 	    department.setName("Manager");
 	    
 	    departmentDao.update(department);
 	    
-	    System.out.println("Update completed." + department);
-
+	    System.out.println("\n\n=== Test 4: Seller Delete ====");
+	    
+	    departmentDao.deleteById(12);
+	    	    
+	    System.out.println("Deleted success.");
+	    
+	    
 
 		
 		

@@ -10,7 +10,6 @@ import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
-import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 	
@@ -71,7 +70,22 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		
+        PreparedStatement preparedStatement = null;
+		
+		try {
+			String sqlDelete = "DELETE from department where id = ?";
+			preparedStatement = connection.prepareStatement(sqlDelete);
+			
+			preparedStatement.setInt(1, id);
+			
+		   preparedStatement.executeUpdate();
+			
+		}catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(preparedStatement);
+		}
 		
 	}
 
